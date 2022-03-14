@@ -58,8 +58,9 @@
                   v-if="active"
                   color="white"
                   size="48"
-                  v-text="'mdi-close-circle-outline'"
-                />
+                >
+                <slot name="icon"></slot>
+                </v-icon>
               </v-scale-transition>
             </v-row>
           </v-img>
