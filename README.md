@@ -1,4 +1,7 @@
 # test-2
+Demo:
+
+- [Live version](https://lumad29.github.io/kings-bakery/)
 
 ## Project setup
 ```
