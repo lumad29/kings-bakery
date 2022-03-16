@@ -8,9 +8,9 @@
     >
       <v-container class="fill-height justify-center"> 
         <breads-carousel>
-        <template #icon>
-     mdi-home
-        </template>
+          <template #icon>
+            mdi-minus-circle-outline
+          </template>
         </breads-carousel>
       </v-container>
     </v-img>

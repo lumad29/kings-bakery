@@ -6,13 +6,19 @@
     color="rgba(0,0,0,0.55)"
   >
     <v-slide-group
+      ref="sliderGroup"
+      :key="sliderGroupKey"
       v-model="breadsIndex"
       class="pa-4"
       show-arrows
       center-active
     >
       <template #next>
-        <v-icon color="white">
+        <v-icon
+          color="white"
+          style="pointer-events:all"
+          @click="cycle()"
+        >
           mdi-chevron-right
         </v-icon>
       </template>
@@ -39,6 +45,7 @@
             width="250"
             :src="require(`@/assets/breads-img/${bread.img}`)"
             :gradient="active ? 'to bottom , rgba(20,20,20, .4) 40%,  rgba(0,0,0,.8) 160%' : ''"
+            :class="{grow: active}"
           >
             <v-footer
               color="rgba(0,0,0,0.55)"
@@ -57,9 +64,9 @@
                 <v-icon
                   v-if="active"
                   color="white"
-                  size="48"
+                  size="35"
                 >
-                <slot name="icon"></slot>
+                  <slot name="icon" />
                 </v-icon>
               </v-scale-transition>
             </v-row>
@@ -118,9 +125,42 @@
         {name: 'rye-sourdough', img: '15-rye-sourdough.jpeg', description: 'A dark and dense bread that takes a week to make and ferments for 24 hours. Perfect thinly sliced and toasted for an open sandwich with smoked salmon or salt beef. '},
         {name: 'onion-focaccia', img: '16-onion-focaccia.jpeg', description: 'A flat oven baked Italian bread, made with olive oil, rosemary and red onion. Delicious on its own, dipped in oil or as a sandwich.'},
       ],
+      disabledNext: false,
+      sliderGroupKey: 0,
     }),
+    mounted () {
+      this.$watch(
+        () => {
+          return this.$refs.sliderGroup.hasNext
+        },
+        (newVal) => {
+          if(!newVal){
+            this.disabledNext = true
+          } else {
+            this.disabledNext = false;
+          }
+        },
+      )
+    },
+    methods: {
+      cycle() {
+        if (this.disabledNext) {
+          ++this.sliderGroupKey
+          this.breadsIndex = null
+        }  
+      },
+    },
   }
 </script>
+
+<style>
+
+.grow .v-image__image {
+transform: scale(1.2);
+transition: all .5s ease-in-out;
+}
+
+</style>
 
 
 
